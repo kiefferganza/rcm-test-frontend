@@ -46,8 +46,10 @@
     remember: true,
   });
   const onFinish = values => {
+    store.email = values.email
+    store.password = values.password
     console.log('Success:', values);
-    store.login(values);
+    store.login();
   };
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo);

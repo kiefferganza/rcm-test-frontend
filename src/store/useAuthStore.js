@@ -20,8 +20,8 @@ export const useAuthStore = defineStore('auth', {
 
               console.log(response);
 
-            //    this.token = response.token
-            //    axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
+               this.token = response.token
+               axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
         }
     }
 })
