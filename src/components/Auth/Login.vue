@@ -37,6 +37,9 @@
   </template>
   <script setup>
   import { reactive } from 'vue';
+  import { useAuthStore } from '@/store/useAuthStore';
+
+  const store = useAuthStore();
   const formState = reactive({
     email: '',
     password: '',
@@ -44,6 +47,7 @@
   });
   const onFinish = values => {
     console.log('Success:', values);
+    store.login(values);
   };
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo);
