@@ -1,5 +1,6 @@
 <template>
-    <a-form
+    <a-flex gap="middle" align="center" vertical>
+        <a-form
       :model="formState"
       name="basic"
       :label-col="{ span: 8 }"
@@ -9,11 +10,11 @@
       @finishFailed="onFinishFailed"
     >
       <a-form-item
-        label="Username"
-        name="username"
-        :rules="[{ required: true, message: 'Please input your username!' }]"
+        label="Email"
+        name="email"
+        :rules="[{ required: true, message: 'Please input your email!' }]"
       >
-        <a-input v-model:value="formState.username" />
+        <a-input v-model:value="formState.email" />
       </a-form-item>
   
       <a-form-item
@@ -32,11 +33,12 @@
         <a-button type="primary" html-type="submit">Submit</a-button>
       </a-form-item>
     </a-form>
+    </a-flex>
   </template>
   <script setup>
   import { reactive } from 'vue';
   const formState = reactive({
-    username: '',
+    email: '',
     password: '',
     remember: true,
   });

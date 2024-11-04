@@ -11,7 +11,7 @@ import Login from '@/components/Auth/Login.vue';
 export default {
   name: 'HomeView',
   components: {
-    HelloWorld
+    Login
   }
 }
 </script>
