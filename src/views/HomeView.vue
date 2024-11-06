@@ -1,6 +1,8 @@
 <template>
   <div class="home">
-  <Login />
+    <a-card title="Employee Management System" style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+      <Login />
+  </a-card>
   </div>
 </template>
 
