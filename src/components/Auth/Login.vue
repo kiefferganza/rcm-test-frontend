@@ -64,11 +64,11 @@
   });
 };
 
-  const onFinish = values => {
+  const onFinish = async values => {
     store.email = values.email
     store.password = values.password
     console.log('Success:', values);
-    store.login();
+    await store.login();
     store.loginSuccess ? loginMessage.value = 'Login Success' : loginMessage.value = 'Login Failed'
     store.loginSuccess ? loginAlert.value = 'success' : loginAlert.value = 'error'
 

@@ -11,8 +11,26 @@ const pinia = createPinia();
 // Set the axios base URL directly
 axios.defaults.baseURL = 'http://localhost:8000/api/';
 
+axios.interceptors.request.use(
+    (config) => {
+        const token = localStorage.getItem('token');
+
+        if (token) {
+            config.headers['Authorization'] = `Bearer ${token}`;
+        }
+
+        return config;
+    },
+
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+
 const app = createApp(App);
 app.use(router).use(Antd).use(pinia).mount('#app');
+
+
 
 // Use axios in your components as needed
 // For example:
