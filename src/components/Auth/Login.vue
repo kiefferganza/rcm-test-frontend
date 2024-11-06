@@ -41,11 +41,11 @@
   <script setup>
   import { reactive, ref } from 'vue';
   import { useAuthStore } from '@/store/useAuthStore';
-
+  import {  useRouter } from 'vue-router'
   import { notification } from 'ant-design-vue';
 
 
-
+  const router = useRouter()
   const store = useAuthStore();
   const loginMessage = ref('')
   const loginAlert = ref('')
@@ -73,6 +73,9 @@
     store.loginSuccess ? loginAlert.value = 'success' : loginAlert.value = 'error'
 
     openNotificationWithIcon(loginAlert.value)
+    store.loginSuccess ? router.push('/employees') : router.push('/')
+
+
     
   };
   const onFinishFailed = errorInfo => {
