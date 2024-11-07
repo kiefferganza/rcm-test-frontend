@@ -5,14 +5,22 @@ export const useEmployeeStore = defineStore('employees', {
     state: () => ({
         employees: [],
         loginSuccess: false,
+        loading: false,
+        current_page: 1,
+        last_page: 1,
+        per_page: 10,
+        total:0
     }),
     actions: {
         async fetchEmployees() {
+            this.loading = true;
             try {
-                const response = await axios.get('employees');
+                const response = await axios.get('employees?page=' + this.current_page);
                 if (response.status === 200) {
-                    console.log(response);
-                    this.employees = response.data;
+                    this.employees = response.data.data;
+                    this.current_page = response.data.data.current_page;
+                    this.last_page = response.data.data.last_page;
+                    this.loading = false;
                 } else {
                     console.error('Failed to fetch employees with status:', response.status);
                 }

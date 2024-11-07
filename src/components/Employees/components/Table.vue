@@ -1,94 +1,64 @@
 <template>
-    <a-table :columns="columns" :data-source="data">
-      <template #headerCell="{ column }">
-        <template v-if="column.key === 'name'">
-          <span>
-            <smile-outlined />
-            Name
-          </span>
-        </template>
-      </template>
-  
-      <template #bodyCell="{ column, record }">
-        <template v-if="column.key === 'name'">
-          <a>
-            {{ record.name }}
-          </a>
-        </template>
-        <template v-else-if="column.key === 'tags'">
-          <span>
-            <a-tag
-              v-for="tag in record.tags"
-              :key="tag"
-              :color="tag === 'loser' ? 'volcano' : tag.length > 5 ? 'geekblue' : 'green'"
-            >
-              {{ tag.toUpperCase() }}
-            </a-tag>
-          </span>
-        </template>
-        <template v-else-if="column.key === 'action'">
-          <span>
-            <a>Invite 一 {{ record.name }}</a>
-            <a-divider type="vertical" />
-            <a>Delete</a>
-            <a-divider type="vertical" />
-            <a class="ant-dropdown-link">
-              More actions
-              <down-outlined />
-            </a>
-          </span>
-        </template>
-      </template>
+    <a-table :columns="columns" :data-source="tableData" :pagination="pagination " @change="handleTableChange">
     </a-table>
   </template>
   <script setup>
+  import { useEmployeeStore } from '@/store/useEmployeeStore';
+
+
+  const employeeStore = useEmployeeStore();
+
+  const employees = employeeStore.employees;
+  const tableData = employees.data;
+
+  const pagination = {
+    'current': employees.current_page,
+    'pageSize': employees.per_page,
+    'total': employees.total,
+    'showTotal': (total) => `Total ${total} items`
+  };
+
+  const handleTableChange = (event) => {
+    employeeStore.current_page = event.current;
+    employeeStore.fetchEmployees();
+  };
+
+  
   const columns = [
+   {
+      'title': 'First Name',
+      'dataIndex': 'firstname',
+      'key': 'firstname'
+   },
     {
-      name: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+        'title': 'Last Name',
+        'dataIndex': 'lastname',
+        'key': 'lastname'
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
+        'title': 'Email',
+        'dataIndex': 'email',
+        'key': 'email'
     },
     {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
+        'title': 'Phone',
+        'dataIndex': 'phone',
+        'key': 'phone'
     },
     {
-      title: 'Tags',
-      key: 'tags',
-      dataIndex: 'tags',
+        'title': 'Status',
+        'dataIndex': 'status',
+        'key': 'status'
     },
     {
-      title: 'Action',
-      key: 'action',
-    },
-  ];
-  const data = [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-      tags: ['nice', 'developer'],
+        'title': 'Type',
+        'dataIndex': 'type',
+        'key': 'type'
     },
     {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-      tags: ['loser'],
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park',
-      tags: ['cool', 'teacher'],
-    },
+      'title': 'Create At',
+      'dataIndex': 'created_at',
+      'key': 'created_at'
+    }
   ];
   </script>

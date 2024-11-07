@@ -5,7 +5,7 @@
       >
         <div class="logo" >
             <H1 style="color: white;">Employee Management System</H1>
-    </div>
+        </div>
         <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
           <a-menu-item key="1">
             <user-outlined />

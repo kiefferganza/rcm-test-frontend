@@ -1,6 +1,7 @@
 <template>
-    <Table />
-    <h1>asdasd</h1>
+   <div v-cloak>
+    <Table  v-if="!employeeStore.loading"/>
+   </div>
 </template>
 
 <script setup>
