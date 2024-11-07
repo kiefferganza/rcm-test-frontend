@@ -22,7 +22,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, defineProps,watchEffect } from 'vue';
+
 
 const form = ref({
     firstname: '',
@@ -32,6 +33,23 @@ const form = ref({
     phone: '',
     status: ''
 });
+
+const props = defineProps({
+    updateForm: {
+        type: Object,
+        default: () => ({})
+    }
+});
+
+if (props.updateForm) {
+    Object.assign(form.value, props.updateForm);
+}
+
+watchEffect(() => {
+    Object.assign(form.value, props.updateForm);
+})
+
+
 
 
 // eslint-disable-next-line no-undef

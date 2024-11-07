@@ -25,7 +25,7 @@
             <a-button type="primary" @click="handleShowModal" style="margin-right: 16px;">
               Add New Employee
             </a-button>
-            <a-modal v-model:open="showModal" title="Employee" okText="Save" :onOk="handleSubmit">
+            <a-modal v-model:open="showModal" title="Add Employee" okText="Save" :onOk="handleSubmit">
               <EmployeeForm  ref="employeeForm"/>
             </a-modal>
             <a-button type="default">
