@@ -33,8 +33,8 @@ export const useEmployeeStore = defineStore('employees', {
             this.loading = true;
             try {
                 const response = await axios.post('employees', employee);
-                if (response.status === 201) {
-                    this.fetchEmployees();
+                if (response.status === 200) {
+                   await this.fetchEmployees();
                 } else {
                     console.error('Failed to create employee with status:', response.status);
                 }
