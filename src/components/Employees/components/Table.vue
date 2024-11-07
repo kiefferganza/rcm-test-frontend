@@ -56,7 +56,7 @@
         'key': 'type'
     },
     {
-      'title': 'Create At',
+      'title': 'Created At',
       'dataIndex': 'created_at',
       'key': 'created_at'
     }

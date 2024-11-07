@@ -27,6 +27,20 @@ export const useEmployeeStore = defineStore('employees', {
             } catch (error) {
                 console.error('An error occurred while fetching employees:', error);
             }
+        },
+
+        async createEmployee(employee) {
+            this.loading = true;
+            try {
+                const response = await axios.post('employees', employee);
+                if (response.status === 201) {
+                    this.fetchEmployees();
+                } else {
+                    console.error('Failed to create employee with status:', response.status);
+                }
+            } catch (error) {
+                console.error('An error occurred while creating employee:', error);
+            }
         }
     }
 })

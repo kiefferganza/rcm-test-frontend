@@ -14,22 +14,55 @@
         </a-menu>
       </a-layout-sider>
       <a-layout :style="{ marginLeft: '200px' }">
-        <a-layout-header :style="{ background: '#fff', padding: 0 }" />
+        <a-layout-header :style="{ background: '#fff', padding: 0 }" >
+
+            <div style="display: flex; align-items: center; padding: 10px;">
+            <a-input-search
+              placeholder="Search employees"
+              style="width: 200px; margin-right: 16px;"
+              @search="onSearch"
+            />
+            <a-button type="primary" @click="handleShowModal" style="margin-right: 16px;">
+              Add New Employee
+            </a-button>
+            <a-modal v-model:open="showModal" title="Employee" okText="Save" :onOk="handleSubmit">
+              <EmployeeForm  ref="employeeForm"/>
+            </a-modal>
+            <a-button type="default">
+              Export
+            </a-button>
+            </div>
+        </a-layout-header>
         <a-layout-content :style="{ margin: '24px 16px 0', overflow: 'initial' }">
           <div :style="{ padding: '24px', background: '#fff', textAlign: 'center' }">
             <index />
           </div>
         </a-layout-content>
         <a-layout-footer :style="{ textAlign: 'center' }">
-          Ant Design ©2018 Created by Ant UED
+          Kieffer Ganza ©2024
         </a-layout-footer>
       </a-layout>
     </a-layout>
   </template>
   <script setup>
   import index from '@/components/Employees/index.vue';
+  import EmployeeForm from '@/components/Employees/components/EmployeeForm.vue';
+  import { useEmployeeStore } from '@/store/useEmployeeStore';
   import { ref } from 'vue';
+
+  const employeeStore = useEmployeeStore();
+
+  const handleSubmit = () => {
+    employeeStore.createEmployee(employeeForm.value.form);
+}
   const selectedKeys = ref(['1']);
+  const showModal = ref(false);
+
+  const employeeForm = ref(null);
+
+  const handleShowModal = () => {
+    showModal.value = true;
+  };
   </script>
   <style scoped>
   #components-layout-demo-fixed-sider .logo {
