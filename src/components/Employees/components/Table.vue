@@ -5,7 +5,7 @@
         <div style="display: flex; gap: 10px;">
           <a-button type="primary" @click="handleShowModal(index)">Update</a-button>
           
-          <a-button danger @click="deleteRecord(record)">Delete</a-button>
+          <a-button danger @click="deleteRecord(index)">Delete</a-button>
         </div>
       </template>
       </template>
@@ -18,6 +18,10 @@
   import { useEmployeeStore } from '@/store/useEmployeeStore';
   import EmployeeForm from '@/components/Employees/components/EmployeeForm.vue';
   import {ref} from 'vue';
+  import {Modal} from 'ant-design-vue';
+  import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
+  import { createVNode } from 'vue';
+  import { notification } from 'ant-design-vue';f
 
 
   const employeeStore = useEmployeeStore();
@@ -27,6 +31,8 @@
 
   const updateEmployeeForm = ref();
   const employeeFormModal = ref();
+  const alertMessage = ref('')
+  const alertType = 'success'
 
   const pagination = {
     'current': employees.current_page,
@@ -47,9 +53,37 @@
     updateEmployeeForm.value = tableData[index];
   };
 
+  const openNotificationWithIcon = type => {
+  notification[type]({
+    message: alertMessage.value,
+    description:
+      '',
+  });
+};
+
   const handleSubmit = () => {
    employeeStore.updateEmployee(employeeFormModal.value.form);
+    alertMessage.value = 'Employee Updated'
+    openNotificationWithIcon(alertType)
   };
+
+  
+
+
+  const deleteRecord = (index) => {
+  Modal.confirm({
+    title: 'Do you want to delete this employee?',
+    icon: createVNode(ExclamationCircleOutlined),
+    content: 'This will delete the employee',
+    onOk() {
+      employeeStore.deleteEmployee(tableData[index]);
+      alertMessage.value = 'Employee Deleted'
+      openNotificationWithIcon(alertType)
+    },
+
+    onCancel() {},
+  });
+};
 
   
   const columns = [

@@ -55,6 +55,20 @@ export const useEmployeeStore = defineStore('employees', {
             } catch (error) {
                 console.error('An error occurred while updating employee:', error);
             }
+        },
+
+        async deleteEmployee(employee) {
+            this.loading = true;
+            try {
+                const response = await axios.delete('employees/' + employee.id);
+                if (response.status === 200) {
+                    await this.fetchEmployees();
+                } else {
+                    console.error('Failed to delete employee with status:', response.status);
+                }
+            } catch (error) {
+                console.error('An error occurred while deleting employee:', error);
+            }
         }
     }
 })
