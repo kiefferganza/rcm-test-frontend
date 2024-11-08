@@ -7,6 +7,7 @@ export const useAuthStore = defineStore('auth', {
         password: '',
         token: localStorage.getItem('token') || '',
         loginSuccess: false,
+        isLoggedIn: false,
     }),
     actions: {
         async login() {
@@ -18,11 +19,11 @@ export const useAuthStore = defineStore('auth', {
                 })
 
                 if (response.status === 200) {
-                    console.log(response);
                     this.token = response.data.token;
                     localStorage.setItem('token', this.token);
                     axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
                     this.loginSuccess = true;
+                    this.isLoggedIn = true
                 } else {
                     console.error('Login failed with status:', response.status);
                     this.loginSuccess = false;
