@@ -49,12 +49,30 @@
   import EmployeeForm from '@/components/Employees/components/EmployeeForm.vue';
   import { useEmployeeStore } from '@/store/useEmployeeStore';
   import { ref } from 'vue';
+  import { notification } from 'ant-design-vue';
+
 
   const employeeStore = useEmployeeStore();
+   const alertMessage = 'Employee added successfully'
+  const alertType = 'success'
+
+  const openNotificationWithIcon = type => {
+  notification[type]({
+    message: alertMessage,
+    description:
+      '',
+  });
+};
 
   const handleSubmit = () => {
     employeeStore.createEmployee(employeeForm.value.form);
+    openNotificationWithIcon(alertType)
 }
+
+
+
+
+
   const selectedKeys = ref(['1']);
   const showModal = ref(false);
 
