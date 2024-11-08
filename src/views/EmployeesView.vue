@@ -20,7 +20,7 @@
             <a-input-search
               placeholder="Search employees"
               style="width: 200px; margin-right: 16px;"
-              @search="onSearch"
+              @search="handleSearch"
             />
             <a-button type="primary" @click="handleShowModal" style="margin-right: 16px;">
               Add New Employee
@@ -63,6 +63,11 @@
       '',
   });
 };
+
+const handleSearch = (value) => {
+    employeeStore.search = value;
+    employeeStore.fetchEmployees();
+  };
 
   const handleSubmit = () => {
     employeeStore.createEmployee(employeeForm.value.form);

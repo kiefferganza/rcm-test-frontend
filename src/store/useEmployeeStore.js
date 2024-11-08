@@ -9,13 +9,14 @@ export const useEmployeeStore = defineStore('employees', {
         current_page: 1,
         last_page: 1,
         per_page: 10,
-        total:0
+        total:0,
+        search: '',
     }),
     actions: {
         async fetchEmployees() {
             this.loading = true;
             try {
-                const response = await axios.get('employees?page=' + this.current_page);
+                const response = await axios.get('employees?page=' + this.current_page + '&search=' + this.search);
                 if (response.status === 200) {
                     this.employees = response.data.data;
                     this.current_page = response.data.data.current_page;
