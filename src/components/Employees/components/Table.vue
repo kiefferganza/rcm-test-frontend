@@ -21,7 +21,7 @@
   import {Modal} from 'ant-design-vue';
   import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
   import { createVNode } from 'vue';
-  import { notification } from 'ant-design-vue';f
+  import { notification } from 'ant-design-vue';
 
 
   const employeeStore = useEmployeeStore();
